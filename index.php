@@ -1,7 +1,7 @@
 <?php
 
 $tornate = array(
-	//'2020_2' => array('descrizione' => 'Referendum confermativo sul taglio dei parlamentari del 29 marzo 2020', 'elezioni' => array('2020-referendum')),
+	'2020_2' => array('descrizione' => 'Referendum confermativo sul taglio dei parlamentari del 20-21 settembre 2020', 'elezioni' => array('2020_referendum')),
 	'2020_1' => array('descrizione' => 'Elezioni Regionali dell\'Emilia-Romagna del 26 gennaio 2020', 'elezioni' => array('2020_regionali_er')),
 	'2019_1' => array('descrizione' => 'Elezioni Europee e Comunali del 26 maggio 2019', 'elezioni' => array('2019_europee','2019_comunali')),
 	'2018_1' => array('descrizione' => 'Elezioni Politiche del 4 marzo 2018', 'elezioni' => array('2018_camera','2018_senato'), 'note' => 'NOTA: non è stata prevista l\'opzione di nomina diretta da parte dei due delegati principali, che andrebbe fatta in modo congiunto, tecnicamente possibile, ma non viene quasi mai utilizzata, se dovesse servire a qualcuno non esitate a contattarmi e vedrò di inserire anche questa opzione.'),
@@ -16,10 +16,10 @@ $elezioni = array(
 	'2018_camera' => array('tipo' => 'Camera'),
 	'2018_senato' => array('tipo' => 'Senato'),
 	'2016_referendum' => array('tipo' => 'Referendum'),
-	//'esempio_completo' => array('tipo' = 'Comunali', 'normalfont' => 'CALIBRI.php', 'normalfontsize' => 12, 'boldfont' => 'CALIBRIB.php', 'boldfontsize' => 14), 
+	//'esempio_completo' => array('tipo' = 'Comunali', 'normalfont' => 'CALIBRI.php', 'normalfontsize' => 12, 'boldfont' => 'CALIBRIB.php', 'boldfontsize' => 14),
 );
 
-$versione_programma = '1.5';
+$versione_programma = '1.6';
 
 if(!empty($_GET['tornata']) && !empty($tornate[$_GET['tornata']]))
  $tornata_corrente_id = $_GET['tornata'];
@@ -39,10 +39,10 @@ if(empty($_POST))
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
 <body onload="ol()">
-	<p><font size="+3">M5S RdL Designator <?php echo $tornate[$tornata_corrente_id]['descrizione']; ?></font><br><font size="-1">ver <?php echo $versione_programma; ?> Realizzato da <a href="mailto:d.vergini@gameprog.it">Daniele Vergini</a> del <a href="http://www.movimento5stelleforli.it">M5S Forl&igrave;</a> (non esitate a contattarmi per domande, segnalazione bug e richieste di customizzazione)</font></p>
+	<p><font size="+3">M5S RdL Designator<br /><?php echo $tornate[$tornata_corrente_id]['descrizione']; ?></font><br><font size="-1">ver <?php echo $versione_programma; ?> Realizzato da <a href="mailto:d.vergini@gameprog.it">Daniele Vergini</a> del <a href="http://www.movimento5stelleforli.it">M5S Forl&igrave;</a> (non esitate a contattarmi per domande, segnalazione bug e richieste di customizzazione)</font></p>
 
 	<p>Questa applicazione web permette di generare facilmente le nomine per rappresentanti di lista del MoVimento 5 Stelle partendo da un semplice foglio di calcolo.</p>
-	
+
 	<p>Alcuni Comuni permettono di presentare un unico modulo cumulativo con tutti i nomi dei rappresentanti di lista, ma altri richiedono esplicitamente un modulo per ogni seggio, questo programmino viene incontro all&apos;esigenza di automatizzare questa operazione che richiederebbe molto tempo. Il programma compila automaticamente i moduli di designazione dei rappresentanti di lista per i vari seggi prelevando i dati da un foglio di calcolo, generando un unico file PDF da stampare, le designazioni saranno quindi solo da firmare e timbrare.</p>
 
 	<p><strong><u>Clicca "invia" in fondo senza toccare nulla per vedere un esempio dell'esito</u></strong></p>
@@ -56,11 +56,11 @@ if(empty($_POST))
 		<li><a href="files/esempio_rdl.csv">formato CSV</a> (per chi dispone solo di un editor di testo)</li>
 	</ul>
 	</p>
-	
+
 	<p>2) Compilate il file con i dati di tutti i vostri rappresentanti di lista <u>seguendo la stessa formattazione del file di esempio</u> dove ogni riga dovrà contenere: il Comune, il n. del seggio, i dati del rappresentate effettivo (pi&ugrave;, solo se presente, i dati del rappresentante supplente). Potete inserire nel file un numero a piacere di righe. Il file ottenuto dovrà essere usato come file di input nella form sottostante.</p>
-	
+
 	<p>3) Compilate i restanti campi di input testuali che vedete qui sotto con i dati reali di chi designa i rappresentanti e dell&apos;autenticatore</p>
-	
+
 	<p>4) Cliccate invia e verrà automaticamente generato in pochi secondi il PDF pronto da stampare</p>
 
 	<p>NOTA BENE: nessun dato viene salvato sul server, ma sono utilizzati esclusivamente per generare il pdf</p>
@@ -86,14 +86,14 @@ if(empty($_POST))
  		if(in_array($elezioni[$e]['tipo'],array('Camera','Senato')))
  		 echo '		<tr class="'.$elezioni[$e]['tipo'].'"><td>Nome Cognome delegati di lista'.($elezione_unica?'':' '.$elezioni[$e]['tipo']).'</td><td><input type="text" name="nome_delegati_'.$e.'" value="Primo '.$elezioni[$e]['tipo'].' e Secondo '.$elezioni[$e]['tipo'].'" size="75"> (che hanno firmato le sub-delege dal notaio per '.$elezioni[$e]['tipo'].')</td></tr>';
  	}
-?> 				
+?>
 		<tr><td colspan="2">&nbsp;</td></tr>
-		<tr><td colspan="2"><strong>Dati della persona che designa i rappresentanti di lista</strong> (è colui che fa materialmente la nomina, solitamente si tratta del &quot;delegato&quot; o del &quot;sub-delegato&quot;, per quest'ultimo non dimenticate di allegare alle designazione la delega che vi deve aver fornito il delegato)</td></tr>
+		<tr><td colspan="2"><strong>Dati della persona che designa i rappresentanti di lista</strong> (è colui che fa materialmente la nomina, solitamente si tratta del &quot;delegato&quot; o del &quot;sub-delegato&quot;, non dimenticate di allegare alle designazioni la vostra delega)</td></tr>
 		<tr><td>Nome Cognome (sub)delegato</td><td><input type="text" name="nome_delegato" value="Daniele Vergini" size="75"></td></tr>
 <?php
 	foreach($elezioni_correnti as $e)
  	{
- 		if(!in_array($elezioni[$e]['tipo'],array('Camera','Senato')))
+ 		if(!in_array($elezioni[$e]['tipo'],array('Camera','Senato','Referendum')))
  		 echo '		<tr class="'.$elezioni[$e]['tipo'].'"><td>In qualità di'.($elezione_unica?'':' ('.$elezioni[$e]['tipo'].')').'</td><td><input type="text" name="qualita_'.$e.'" value="subdelegato giusta delega che si allega in copia al presente atto di nomina" size="75"></td></tr>';
 
  		if($elezioni[$e]['tipo']=='Comunali')
@@ -102,6 +102,12 @@ if(empty($_POST))
 ?>
 		<tr><td>Comune Nascita (sub)delegato</td><td><input type="text" name="comune_nascita_delegato" value="Forl&igrave;" size="75"></td></tr>
 		<tr><td>Data Nascita (sub)delegato</td><td><input type="text" name="data_nascita_delegato" value="25/06/1977"> (formato GG/MM/AAAA)</td></tr>
+<?php
+	if($elezioni[$e]['tipo']=='Referendum')
+	{
+		echo '		<tr><td>Domicilio (sub)delegato</td><td><input type="text" name="domicilio_delegato" value="Via Vai, 123, Forl&igrave;" size="75"></td></tr>';
+ 	}
+?>
 		<tr><td>Documento del (sub)delegato</td><td><input type="text" name="documento_delegato" value="Carta di identit&agrave; n.AT12345678" size="75"></td></tr>
 		<tr><td>Luogo Firma Documento</td><td><input type="text" name="luogo_documento" value="Forl&igrave;" size="50"> (attenzione il luogo deve essere nella &quot;giurisdizione&quot; dell&apos;autenticatore)</td></tr>
 		<tr><td>Data Firma Documento</td><td><input type="text" name="data_documento" value="<?php echo date('d/m/Y'); ?>"> (formato GG/MM/AAAA)</td></tr>
@@ -111,11 +117,11 @@ if(empty($_POST))
 		<tr class="aut"><td>Qualifica autenticatore firma</td><td><input type="text" name="qualifica_autenticatore" value="Consigliere Comunale" size="50"></td></tr>
 		<tr><td>Oscura autentica</td><td><input type="checkbox" id="oscura_autentica" name="oscura_autentica" value="1" onclick="javascript:x =document.getElementsByClassName('aut'); for(i = 0; i < x.length; i++) if(x[i].style.display=='none') x[i].style.display=''; else x[i].style.display='none';"> (per generare estratti di nomine cumulative)</td></tr>
 		</table>
-		
+
 		<input type="submit" name="submit" value="invia" style="width:90px;height:45px;"> (e attendi pazientemente qualche secondo, si aprir&agrave; direttamente il PDF)
 	</form>
-	
-	<p><strong>MODULO PER DESIGNAZIONI COMULATIVE</strong>: per evitare di firmare tanti moduli potete usare anche il 
+
+	<p><strong>MODULO PER DESIGNAZIONI COMULATIVE</strong>: per evitare di firmare tanti moduli potete usare anche il
 <?php
 	if($elezione_unica)
 	 echo '<a href="files/modulo_'.current($elezioni_correnti).'_cumulativo.docx">file docx Word per le nomine cumulative</a>';
@@ -132,10 +138,10 @@ if(empty($_POST))
 ?>
  (clicca nel link qui a sinistra per scaricarlo) anche questo modulo va autenticato, e l'autentica va su ogni facciata, alcuni comuni chiedono in aggiunta anche gli "estratti" singoli che è possibile generare cliccando sopra l'apposita spunta.</p>
 
-<?php 
-	
+<?php
+
 	if(!empty($tornate[$tornata_corrente_id]['note']))
-	 echo '	<p>'.$tornate[$tornata_corrente_id]['note'].'</p>'; 
+	 echo '	<p>'.$tornate[$tornata_corrente_id]['note'].'</p>';
 
 ?>
 
@@ -153,12 +159,12 @@ if(empty($_POST))
 	{
 		if(document.getElementById("oscura_autentica").checked == true)
 		{
-			x = document.getElementsByClassName('aut'); 
-			for(i = 0; i < x.length; i++) 
-			 if(x[i].style.display=='none') 
-			  x[i].style.display=''; 
-			 else 
-			  x[i].style.display='none';			
+			x = document.getElementsByClassName('aut');
+			for(i = 0; i < x.length; i++)
+			 if(x[i].style.display=='none')
+			  x[i].style.display='';
+			 else
+			  x[i].style.display='none';
 		}
 <?php
 		if(!$elezione_unica)
@@ -167,11 +173,11 @@ if(empty($_POST))
 
 		if(document.getElementById("elezione_'.$e.'").checked != true)
 		{
-			x = document.getElementsByClassName(\''.$elezioni[$e]['tipo'].'\'); 
-			for(i = 0; i < x.length; i++) 
-			 if(x[i].style.display==\'none\') 
-			  x[i].style.display=\'\'; 
-			 else 
+			x = document.getElementsByClassName(\''.$elezioni[$e]['tipo'].'\');
+			for(i = 0; i < x.length; i++)
+			 if(x[i].style.display==\'none\')
+			  x[i].style.display=\'\';
+			 else
 			  x[i].style.display=\'none\';
 		}';
 ?>
@@ -212,9 +218,9 @@ else
 
 	class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 	{
-	    public function readCell($column, $row, $worksheetName = '') 
+	    public function readCell($column, $row, $worksheetName = '')
 	    {
-            if(in_array($column,range('A','J'))) 
+            if(in_array($column,range('A','J')))
             {
                 return true;
             }
@@ -260,6 +266,7 @@ else
 	$nome_delegato = empty($_POST['nome_delegato'])?'':trim(iconv('UTF-8', 'CP1252//TRANSLIT',$_POST['nome_delegato']));
     $comune_nascita_delegato = empty($_POST['comune_nascita_delegato'])?'':trim(iconv('UTF-8', 'CP1252//TRANSLIT',$_POST['comune_nascita_delegato']));
     $data_nascita_delegato = empty($_POST['data_nascita_delegato'])?'':trim(iconv('UTF-8', 'CP1252//TRANSLIT',$_POST['data_nascita_delegato']));
+    $domicilio_delegato = empty($_POST['domicilio_delegato'])?'':trim(iconv('UTF-8', 'CP1252//TRANSLIT',$_POST['domicilio_delegato']));
 
     $luogo_documento = empty($_POST['luogo_documento'])?'':trim(iconv('UTF-8', 'CP1252//TRANSLIT',$_POST['luogo_documento']));
     $data_documento = empty($_POST['data_documento'])?'':trim(iconv('UTF-8', 'CP1252//TRANSLIT',$_POST['data_documento']));
@@ -335,8 +342,26 @@ else
 
 				$y+= 5.5;
 
-				$pdf->SetXY(39+$diffX,$y+$diffY);
-				$pdf->CellFitScale(157,8,$qualita,$border,0);
+				if($elezioni[$elezione]['tipo']=='Referendum')
+				{
+					$pdf->SetXY(30+$diffX,$y+$diffY);
+					$pdf->CellFitScale(137,8,$comune_nascita_delegato,$border,0);
+
+					$pdf->SetXY(172+$diffX,$y+$diffY);
+					$pdf->CellFitScale(25,8,$data_nascita_delegato,$border,0);
+
+					$y+= 5.5;
+
+					$pdf->SetXY(47+$diffX,$y+$diffY);
+					$pdf->CellFitScale(148,8,$domicilio_delegato,$border,0);
+
+					$y-= 5.5;
+				}
+				else
+				{
+					$pdf->SetXY(39+$diffX,$y+$diffY);
+					$pdf->CellFitScale(157,8,$qualita,$border,0);
+				}
 
 				$y+= $spacing;
 
@@ -453,7 +478,7 @@ else
 		}
 	}
 
-	$pdf->Output('designator_output.pdf','I');	
+	$pdf->Output('designator_output.pdf','I');
 }
 
 function uploadError()
